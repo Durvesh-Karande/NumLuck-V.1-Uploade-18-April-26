@@ -3,21 +3,21 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="gold">#FFD4A24C</color>
-    <color name="gold_bright">#FFE8C888</color>
-    <color name="gold_dim">#FF8C7143</color>
+    <color name="gold">#FF0A84FF</color>
+    <color name="gold_bright">#FF64D2FF</color>
+    <color name="gold_dim">#FF4A6B8C</color>
 
     <color name="dark_background">#FF000000</color>
-    <color name="surface_1">#FF1C1C1E</color>
-    <color name="surface_2">#FF2C2C2E</color>
-    <color name="surface_3">#FF3A3A3C</color>
-    <color name="separator">#FF2C2C2E</color>
-    <color name="hairline">#33E8C888</color>
+    <color name="surface_1">#FF0E1624</color>
+    <color name="surface_2">#FF16202F</color>
+    <color name="surface_3">#FF1F2B3D</color>
+    <color name="separator">#FF16202F</color>
+    <color name="hairline">#3364D2FF</color>
 
-    <color name="card_background">#FF1C1C1E</color>
+    <color name="card_background">#FF0E1624</color>
 
     <color name="text_primary">#FFFFFFFF</color>
     <color name="text_secondary">#FFEBEBF5</color>
     <color name="text_muted">#99EBEBF5</color>
-    <color name="hint_color">#66E8C888</color>
+    <color name="hint_color">#6664D2FF</color>
 </resources>

@@ -5,11 +5,21 @@
     <string name="header_subtitle">Unlock the numbers, dates &amp; colors aligned with your soul</string>
     <string name="form_section_title">Your Details</string>
     <string name="dob_label">Date of Birth</string>
-    <string name="first_name_hint">First Name</string>
-    <string name="last_name_hint">Last Name</string>
+    <string name="first_name_hint">First name</string>
+    <string name="last_name_hint">Last name</string>
     <string name="day_hint">Day (1-31)</string>
     <string name="month_hint">Month (1-12)</string>
     <string name="year_hint">Year (1900-2100)</string>
+    <string name="date_of_birth_hint">Date of birth</string>
+    <string name="pick_date_title">Select your date of birth</string>
+    <string name="error_fill_all">Please fill in all fields</string>
+    <string name="error_invalid_date">Please select a valid date</string>
+    <string name="hero_greeting">Hi, %1$s</string>
+    <string name="hero_lifepath_label">Your Life Path Number</string>
+    <string name="tab_numbers">Numbers</string>
+    <string name="tab_dates">Dates</string>
+    <string name="tab_days">Days</string>
+    <string name="tab_colors">Colors</string>
     <string name="dd">DD</string>
     <string name="mm">MM</string>
     <string name="yyyy">YYYY</string>
@@ -48,4 +58,22 @@
     <string name="maturity_desc">Your future self</string>
     <string name="personal_year_title">Personal Year Number</string>
     <string name="personal_year_desc">This year\'s energy and opportunities</string>
+
+    <string name="info_number_subtitle">Why this number today</string>
+    <string name="info_date_subtitle">Why this date is lucky</string>
+    <string name="info_weekday_subtitle">Why this day is lucky</string>
+    <string name="info_color_subtitle">Why this color is lucky</string>
+    <string name="lucky_date_title">Lucky Date</string>
+    <string name="lucky_weekday_title">Lucky Day</string>
+    <string name="lucky_color_title">Lucky Color</string>
+
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_and_conditions">Terms &amp; Conditions</string>
+    <string name="footer_divider">·</string>
+    <string name="privacy_title">Privacy Policy</string>
+    <string name="terms_title">Terms &amp; Conditions</string>
+
+    <string name="privacy_body">Last updated: November 2025\n\nNumLuck (\"we\", \"our\", or \"the app\") respects your privacy. This Privacy Policy explains how we handle information when you use the NumLuck mobile application.\n\n1. Information We Collect\nNumLuck is designed to work entirely on your device. We do not require you to create an account, and we do not collect, store, or transmit your personal information to any server controlled by us.\n\nWhen you use the app, you may enter the following information locally:\n• Your first name\n• Your last name\n• Your date of birth\n\nThis information is used only on your device to calculate your numerology results and is not sent anywhere.\n\n2. How We Use the Information\nThe information you enter is used solely to:\n• Calculate your Life Path, Destiny, Soul Urge, Personality, Birthday, Maturity and Personal Year numbers\n• Generate your lucky dates, days and colors\n• Display these results to you within the app\n\nWe do not use your data for advertising, profiling, or any analytics.\n\n3. Data Storage\nAny information you enter remains on your device. Closing the app may clear this information. NumLuck does not keep a copy of your data on any external server.\n\n4. Data Sharing\nWe do not share, sell, trade, or rent your personal information to third parties. Because we do not collect your data, there is nothing for us to share.\n\n5. Third-Party Services\nNumLuck does not integrate third-party analytics, advertising, or tracking SDKs.\n\n6. Children\'s Privacy\nNumLuck is intended for general audiences and does not knowingly collect information from children under the age of 13. If you believe a child has entered personal information in the app, please remove the app from the device.\n\n7. Permissions\nNumLuck does not request access to your contacts, camera, microphone, location, photos, or any sensitive data.\n\n8. Security\nBecause your data remains on your device, its protection depends primarily on the security of your device. We recommend keeping your device updated and using a screen lock.\n\n9. Changes to This Policy\nWe may update this Privacy Policy from time to time. The updated version will be available within the app. Continued use of the app after changes means you accept the updated policy.\n\n10. Contact Us\nIf you have any questions about this Privacy Policy, please contact us at:\nsupport@numluck.app\n\nBy using NumLuck you agree to this Privacy Policy.</string>
+
+    <string name="terms_body">Last updated: November 2025\n\nWelcome to NumLuck. By downloading, installing or using the NumLuck application (the \"App\") you agree to these Terms &amp; Conditions. Please read them carefully.\n\n1. Acceptance of Terms\nBy using the App you confirm that you have read, understood and agreed to these Terms &amp; Conditions. If you do not agree, please stop using the App.\n\n2. Eligibility\nYou must be at least 13 years old to use NumLuck. By using the App you confirm that you meet this minimum age requirement.\n\n3. Nature of the Content\nNumLuck provides numerology-based readings, lucky numbers, lucky dates, lucky days and lucky colors based on classical numerology principles.\n\nAll content provided in the App is for entertainment, self-reflection and informational purposes only.\n\nNumLuck readings are NOT a substitute for professional advice, including but not limited to:\n• Medical, psychological or mental-health advice\n• Legal advice\n• Financial, investment or business advice\n• Relationship or therapy advice\n\nYou should not make significant life decisions based solely on the content shown in the App.\n\n4. No Guarantees\nNumerology is a traditional system of beliefs. We do not guarantee any specific outcome, benefit, improvement or result from following the App\'s suggestions. Any actions you take based on the App are at your own risk.\n\n5. Use of the App\nYou agree to use NumLuck only for lawful, personal, non-commercial purposes. You agree not to:\n• Reverse engineer, decompile or modify the App\n• Use the App in a way that could damage, disable or impair it\n• Copy or redistribute the App without our written permission\n• Use the App to harass or mislead others\n\n6. Intellectual Property\nAll content within the App — including the name \"NumLuck\", the logo, the user interface, the calculations and the descriptive text — is owned by or licensed to us and is protected by applicable intellectual property laws. You receive a limited, non-exclusive, non-transferable, revocable license to use the App for personal use.\n\n7. User-Entered Information\nAny information you enter (such as your name and date of birth) stays on your device and is used only for calculations within the App. You are responsible for the accuracy of the information you enter.\n\n8. Third-Party Services\nThe App may be distributed through third-party stores (e.g. Google Play). Your use of those stores is governed by their own terms.\n\n9. Disclaimer of Warranties\nThe App is provided \"as is\" and \"as available\" without warranties of any kind, whether express or implied, including merchantability, fitness for a particular purpose or non-infringement.\n\n10. Limitation of Liability\nTo the maximum extent permitted by law, we will not be liable for any indirect, incidental, special, consequential or punitive damages arising out of or related to your use of the App — including loss of profits, loss of data, personal injury, or decisions made based on the App\'s content.\n\n11. Changes to the App and to These Terms\nWe may update the App and these Terms from time to time. Continued use of the App after an update means you accept the revised Terms.\n\n12. Termination\nWe may suspend or discontinue the App (in whole or in part) at any time without notice. You may stop using the App at any time by uninstalling it.\n\n13. Governing Law\nThese Terms are governed by the laws of your country of residence, unless another jurisdiction is required by applicable law.\n\n14. Contact\nFor questions about these Terms &amp; Conditions, please contact:\nsupport@numluck.app\n\nBy using NumLuck you agree to these Terms &amp; Conditions.</string>
 </resources>

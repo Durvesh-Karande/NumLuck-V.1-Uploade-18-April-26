@@ -1,22 +1,26 @@
 package com.example.numluck
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.GridLayout
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.numluck.databinding.ActivityResultsBinding
 import com.example.numluck.databinding.ItemColorCardBinding
-import com.example.numluck.databinding.ItemDateBadgeBinding
 import com.example.numluck.databinding.ItemNumberCardBinding
 import com.example.numluck.databinding.ItemSectionHeaderBinding
-import com.example.numluck.databinding.ItemWeekdayCardBinding
 import com.google.android.material.button.MaterialButton
-import java.util.*
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class ResultsActivity : AppCompatActivity() {
 
@@ -42,39 +46,52 @@ class ResultsActivity : AppCompatActivity() {
 
         calculateLifePath()
 
+        binding.btnBack.setOnClickListener { finish() }
+
+        binding.tvHeroGreeting.text = getString(R.string.hero_greeting, firstName)
+        binding.tvHeroNumber.text = lifePathNumber.toString()
+
+        binding.tvHeroNumber.setOnClickListener {
+            openNumberInfo("Life Path", lifePathNumber)
+        }
+
         setupTabs()
-        showLuckyNumbers() // Default tab
+        binding.segmentedTabs.check(R.id.btnLuckyNumbers)
+        showLuckyNumbers()
     }
 
     private fun setupTabs() {
-        val buttons = listOf(binding.btnLuckyNumbers, binding.btnLuckyDates, binding.btnLuckyWeekdays, binding.btnLuckyColors)
-        
-        buttons.forEach { button ->
-            button.setOnClickListener {
-                setActiveTab(it as MaterialButton)
-                when (it.id) {
-                    R.id.btnLuckyNumbers -> showLuckyNumbers()
-                    R.id.btnLuckyDates -> showLuckyDates()
-                    R.id.btnLuckyWeekdays -> showLuckyWeekdays()
-                    R.id.btnLuckyColors -> showLuckyColors()
-                }
+        binding.segmentedTabs.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (!isChecked) return@addOnButtonCheckedListener
+            updateTabVisuals(checkedId)
+            when (checkedId) {
+                R.id.btnLuckyNumbers -> showLuckyNumbers()
+                R.id.btnLuckyDates -> showLuckyDates()
+                R.id.btnLuckyWeekdays -> showLuckyWeekdays()
+                R.id.btnLuckyColors -> showLuckyColors()
             }
         }
-        
-        setActiveTab(binding.btnLuckyNumbers)
+        updateTabVisuals(R.id.btnLuckyNumbers)
     }
 
-    private fun setActiveTab(activeButton: MaterialButton) {
-        val buttons = listOf(binding.btnLuckyNumbers, binding.btnLuckyDates, binding.btnLuckyWeekdays, binding.btnLuckyColors)
-        val activeTint = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.surface_3))
-        val inactiveTint = ColorStateList.valueOf(Color.TRANSPARENT)
-        buttons.forEach { button ->
-            if (button == activeButton) {
-                button.backgroundTintList = activeTint
-                button.setTextColor(ContextCompat.getColor(this, R.color.text_primary))
+    private fun updateTabVisuals(activeId: Int) {
+        val buttons = listOf(
+            binding.btnLuckyNumbers,
+            binding.btnLuckyDates,
+            binding.btnLuckyWeekdays,
+            binding.btnLuckyColors
+        )
+        val activeBg = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.surface_3))
+        val inactiveBg = ColorStateList.valueOf(Color.TRANSPARENT)
+        val activeText = ContextCompat.getColor(this, R.color.text_primary)
+        val inactiveText = ContextCompat.getColor(this, R.color.text_muted)
+        buttons.forEach { btn ->
+            if (btn.id == activeId) {
+                btn.backgroundTintList = activeBg
+                btn.setTextColor(activeText)
             } else {
-                button.backgroundTintList = inactiveTint
-                button.setTextColor(ContextCompat.getColor(this, R.color.text_muted))
+                btn.backgroundTintList = inactiveBg
+                btn.setTextColor(inactiveText)
             }
         }
     }
@@ -92,31 +109,40 @@ class ResultsActivity : AppCompatActivity() {
 
         val gridLayout = GridLayout(this).apply {
             columnCount = 2
-            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
         }
         binding.contentContainer.addView(gridLayout)
 
+        data class NumEntry(val num: Int, val title: String, val desc: String, val kind: String)
         val numbers = listOf(
-            Triple(lifePathNumber, getString(R.string.life_path_title), getString(R.string.life_path_desc)),
-            Triple(calculateDestiny(), getString(R.string.destiny_title), getString(R.string.destiny_desc)),
-            Triple(calculateSoulUrge(), getString(R.string.soul_urge_title), getString(R.string.soul_urge_desc)),
-            Triple(calculatePersonality(), getString(R.string.personality_title), getString(R.string.personality_desc)),
-            Triple(reduceToSingleDigit(day), getString(R.string.birthday_title), getString(R.string.birthday_desc)),
-            Triple(calculateMaturity(), getString(R.string.maturity_title), getString(R.string.maturity_desc)),
-            Triple(calculatePersonalYear(), getString(R.string.personal_year_title), getString(R.string.personal_year_desc))
+            NumEntry(calculateDestiny(), getString(R.string.destiny_title), getString(R.string.destiny_desc), "Destiny"),
+            NumEntry(calculateSoulUrge(), getString(R.string.soul_urge_title), getString(R.string.soul_urge_desc), "Soul Urge"),
+            NumEntry(calculatePersonality(), getString(R.string.personality_title), getString(R.string.personality_desc), "Personality"),
+            NumEntry(reduceToSingleDigit(day), getString(R.string.birthday_title), getString(R.string.birthday_desc), "Birthday"),
+            NumEntry(calculateMaturity(), getString(R.string.maturity_title), getString(R.string.maturity_desc), "Maturity"),
+            NumEntry(calculatePersonalYear(), getString(R.string.personal_year_title), getString(R.string.personal_year_desc), "Personal Year")
         )
 
-        numbers.forEach { (num, title, desc) ->
+        numbers.forEach { entry ->
             val cardBinding = ItemNumberCardBinding.inflate(layoutInflater, gridLayout, false)
-            cardBinding.tvNumber.text = num.toString()
-            cardBinding.tvTitle.text = title
-            cardBinding.tvDescription.text = desc
-            
+            cardBinding.tvNumber.text = entry.num.toString()
+            cardBinding.tvTitle.text = entry.title
+            cardBinding.tvDescription.text = entry.desc
+
             val params = GridLayout.LayoutParams()
             params.width = 0
             params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
             cardBinding.root.layoutParams = params
-            
+
+            cardBinding.root.isClickable = true
+            cardBinding.root.isFocusable = true
+            cardBinding.root.setOnClickListener {
+                openNumberInfo(entry.kind, entry.num)
+            }
+
             gridLayout.addView(cardBinding.root)
         }
     }
@@ -125,34 +151,141 @@ class ResultsActivity : AppCompatActivity() {
         binding.contentContainer.removeAllViews()
         addSectionHeader(R.string.lucky_dates_title, R.string.lucky_dates_subtitle)
 
-        val flowLayout = LinearLayout(this).apply {
-            orientation = LinearLayout.HORIZONTAL
-            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-        }
-        // Simplified: use a horizontal scroll view for the badges
-        val horizontalScroll = android.widget.HorizontalScrollView(this)
-        horizontalScroll.addView(flowLayout)
-        binding.contentContainer.addView(horizontalScroll)
-
         val calendar = Calendar.getInstance()
-        val daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
+        val monthName = SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(calendar.time)
+
+        val monthLabel = TextView(this).apply {
+            text = monthName
+            setTextColor(ContextCompat.getColor(this@ResultsActivity, R.color.text_primary))
+            textSize = 16f
+            typeface = android.graphics.Typeface.create("sans-serif-medium", android.graphics.Typeface.NORMAL)
+            gravity = Gravity.CENTER
+            setPadding(0, dp(4), 0, dp(12))
+        }
+        binding.contentContainer.addView(monthLabel)
+
+        val calendarCard = com.google.android.material.card.MaterialCardView(this).apply {
+            radius = dp(20).toFloat()
+            cardElevation = 0f
+            setCardBackgroundColor(ContextCompat.getColor(this@ResultsActivity, R.color.surface_1))
+            val lp = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            layoutParams = lp
+        }
+        binding.contentContainer.addView(calendarCard)
+
+        val grid = GridLayout(this).apply {
+            columnCount = 7
+            setPadding(dp(12), dp(16), dp(12), dp(16))
+        }
+        calendarCard.addView(grid)
+
+        val weekdayLabels = listOf("M", "T", "W", "T", "F", "S", "S")
+        weekdayLabels.forEach { label ->
+            val tv = TextView(this).apply {
+                text = label
+                setTextColor(ContextCompat.getColor(this@ResultsActivity, R.color.text_muted))
+                textSize = 11f
+                typeface = android.graphics.Typeface.create("sans-serif-medium", android.graphics.Typeface.NORMAL)
+                gravity = Gravity.CENTER
+            }
+            val lp = GridLayout.LayoutParams().apply {
+                width = 0
+                height = dp(28)
+                columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
+            }
+            grid.addView(tv, lp)
+        }
+
+        val monthCal = Calendar.getInstance().apply {
+            set(Calendar.DAY_OF_MONTH, 1)
+        }
+        val daysInMonth = monthCal.getActualMaximum(Calendar.DAY_OF_MONTH)
+        val firstDayOfWeek = monthCal.get(Calendar.DAY_OF_WEEK) // Sun=1..Sat=7
+        val leadingBlanks = (firstDayOfWeek + 5) % 7 // Convert so Mon=0
+
+        for (i in 0 until leadingBlanks) {
+            val blank = View(this)
+            val lp = GridLayout.LayoutParams().apply {
+                width = 0
+                height = dp(44)
+                columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
+            }
+            grid.addView(blank, lp)
+        }
+
+        val today = Calendar.getInstance()
+        val todayDay = if (today.get(Calendar.MONTH) == monthCal.get(Calendar.MONTH) &&
+                          today.get(Calendar.YEAR) == monthCal.get(Calendar.YEAR)) {
+            today.get(Calendar.DAY_OF_MONTH)
+        } else -1
 
         val target = reduceToSingleDigit(lifePathNumber)
 
-        for (i in 1..daysInMonth) {
-            if (reduceToSingleDigit(i) == target) {
-                val badgeBinding = ItemDateBadgeBinding.inflate(layoutInflater, flowLayout, false)
-                badgeBinding.tvDate.text = i.toString()
-                flowLayout.addView(badgeBinding.root)
+        for (d in 1..daysInMonth) {
+            val isLucky = reduceToSingleDigit(d) == target
+            val isToday = d == todayDay
+            val cell = buildCalendarCell(d, isLucky, isToday)
+            if (isLucky) {
+                cell.isClickable = true
+                cell.isFocusable = true
+                cell.setOnClickListener { openDateInfo(d) }
+            }
+            val lp = GridLayout.LayoutParams().apply {
+                width = 0
+                height = dp(44)
+                columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
+            }
+            grid.addView(cell, lp)
+        }
+    }
+
+    private fun buildCalendarCell(day: Int, isLucky: Boolean, isToday: Boolean): View {
+        val container = FrameLayout(this)
+        val disc = View(this).apply {
+            val size = dp(36)
+            val lp = FrameLayout.LayoutParams(size, size, Gravity.CENTER)
+            layoutParams = lp
+            background = when {
+                isLucky -> ContextCompat.getDrawable(this@ResultsActivity, R.drawable.bg_hero_disc)
+                isToday -> ContextCompat.getDrawable(this@ResultsActivity, R.drawable.bg_today_ring)
+                else -> null
             }
         }
+        container.addView(disc)
+
+        val tv = TextView(this).apply {
+            text = day.toString()
+            textSize = 14f
+            gravity = Gravity.CENTER
+            val color = when {
+                isLucky -> ContextCompat.getColor(this@ResultsActivity, R.color.black)
+                else -> ContextCompat.getColor(this@ResultsActivity, R.color.text_primary)
+            }
+            setTextColor(color)
+            typeface = android.graphics.Typeface.create(
+                "sans-serif-medium",
+                if (isLucky) android.graphics.Typeface.BOLD else android.graphics.Typeface.NORMAL
+            )
+            val lp = FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                Gravity.CENTER
+            )
+            layoutParams = lp
+        }
+        container.addView(tv)
+
+        return container
     }
 
     private fun showLuckyWeekdays() {
         binding.contentContainer.removeAllViews()
         addSectionHeader(R.string.lucky_weekdays_title, R.string.lucky_weekdays_subtitle)
 
-        val weekdays = when (reduceToSingleDigit(lifePathNumber)) {
+        val lucky = when (reduceToSingleDigit(lifePathNumber)) {
             1 -> listOf("Sunday", "Monday")
             2 -> listOf("Monday", "Friday")
             3 -> listOf("Thursday", "Sunday")
@@ -165,10 +298,86 @@ class ResultsActivity : AppCompatActivity() {
             else -> listOf("Monday")
         }
 
-        weekdays.forEach { dayName ->
-            val cardBinding = ItemWeekdayCardBinding.inflate(layoutInflater, binding.contentContainer, false)
-            cardBinding.tvWeekday.text = dayName
-            binding.contentContainer.addView(cardBinding.root)
+        val weekLayout = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+            val lp = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply { bottomMargin = dp(20) }
+            layoutParams = lp
+        }
+        binding.contentContainer.addView(weekLayout)
+
+        val weekOrder = listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+        val letters = listOf("M", "T", "W", "T", "F", "S", "S")
+        weekOrder.forEachIndexed { idx, dayName ->
+            val isLucky = lucky.contains(dayName)
+            val cell = FrameLayout(this).apply {
+                val lp = LinearLayout.LayoutParams(0, dp(52), 1f).apply {
+                    setMargins(dp(3), 0, dp(3), 0)
+                }
+                layoutParams = lp
+                background = ContextCompat.getDrawable(
+                    this@ResultsActivity,
+                    if (isLucky) R.drawable.bg_weekday_active else R.drawable.bg_weekday_inactive
+                )
+            }
+            val tv = TextView(this).apply {
+                text = letters[idx]
+                textSize = 15f
+                typeface = android.graphics.Typeface.create("sans-serif-medium", android.graphics.Typeface.BOLD)
+                gravity = Gravity.CENTER
+                setTextColor(
+                    ContextCompat.getColor(
+                        this@ResultsActivity,
+                        if (isLucky) R.color.black else R.color.text_muted
+                    )
+                )
+                layoutParams = FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.MATCH_PARENT,
+                    FrameLayout.LayoutParams.MATCH_PARENT
+                )
+            }
+            cell.addView(tv)
+            weekLayout.addView(cell)
+        }
+
+        lucky.forEach { dayName ->
+            val card = com.google.android.material.card.MaterialCardView(this).apply {
+                radius = dp(16).toFloat()
+                cardElevation = 0f
+                setCardBackgroundColor(ContextCompat.getColor(this@ResultsActivity, R.color.surface_1))
+                isClickable = true
+                isFocusable = true
+                setOnClickListener { openWeekdayInfo(dayName) }
+                val lp = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply { bottomMargin = dp(10) }
+                layoutParams = lp
+            }
+            val row = LinearLayout(this).apply {
+                orientation = LinearLayout.HORIZONTAL
+                gravity = Gravity.CENTER_VERTICAL
+                setPadding(dp(20), dp(18), dp(20), dp(18))
+            }
+            val dot = View(this).apply {
+                val lp = LinearLayout.LayoutParams(dp(8), dp(8)).apply {
+                    marginEnd = dp(16)
+                }
+                layoutParams = lp
+                background = ContextCompat.getDrawable(this@ResultsActivity, R.drawable.bg_accent_dot)
+            }
+            val name = TextView(this).apply {
+                text = dayName
+                setTextColor(ContextCompat.getColor(this@ResultsActivity, R.color.text_primary))
+                textSize = 17f
+                typeface = android.graphics.Typeface.create("sans-serif-medium", android.graphics.Typeface.NORMAL)
+            }
+            row.addView(dot)
+            row.addView(name)
+            card.addView(row)
+            binding.contentContainer.addView(card)
         }
     }
 
@@ -195,19 +404,81 @@ class ResultsActivity : AppCompatActivity() {
         colors.forEach { (name, hex) ->
             val cardBinding = ItemColorCardBinding.inflate(layoutInflater, binding.contentContainer, false)
             cardBinding.tvColorName.text = name
+            cardBinding.tvColorHex.text = hex.uppercase()
             cardBinding.viewColor.backgroundTintList = ColorStateList.valueOf(Color.parseColor(hex))
+            cardBinding.root.isClickable = true
+            cardBinding.root.isFocusable = true
+            cardBinding.root.setOnClickListener { openColorInfo(name, hex) }
             binding.contentContainer.addView(cardBinding.root)
         }
     }
 
-    // --- Calculation Logic ---
+    private fun openNumberInfo(kind: String, value: Int) {
+        val title = "$kind Number"
+        val subtitle = getString(R.string.info_number_subtitle)
+        val body = NumerologyInterpretations.numberMeaning(kind, value)
+        val intent = Intent(this, InfoActivity::class.java).apply {
+            putExtra(InfoActivity.EXTRA_KIND, InfoActivity.KIND_NUMBER)
+            putExtra(InfoActivity.EXTRA_TITLE, title)
+            putExtra(InfoActivity.EXTRA_SUBTITLE, subtitle)
+            putExtra(InfoActivity.EXTRA_BODY, body)
+            putExtra(InfoActivity.EXTRA_DISPLAY_VALUE, value.toString())
+        }
+        startActivity(intent)
+    }
+
+    private fun openDateInfo(date: Int) {
+        val title = getString(R.string.lucky_date_title)
+        val subtitle = getString(R.string.info_date_subtitle)
+        val body = NumerologyInterpretations.dateMeaning(date, lifePathNumber)
+        val intent = Intent(this, InfoActivity::class.java).apply {
+            putExtra(InfoActivity.EXTRA_KIND, InfoActivity.KIND_DATE)
+            putExtra(InfoActivity.EXTRA_TITLE, title)
+            putExtra(InfoActivity.EXTRA_SUBTITLE, subtitle)
+            putExtra(InfoActivity.EXTRA_BODY, body)
+            putExtra(InfoActivity.EXTRA_DISPLAY_VALUE, date.toString())
+        }
+        startActivity(intent)
+    }
+
+    private fun openWeekdayInfo(dayName: String) {
+        val title = dayName
+        val subtitle = getString(R.string.info_weekday_subtitle)
+        val body = NumerologyInterpretations.weekdayMeaning(dayName, lifePathNumber)
+        val displayValue = dayName.take(1).uppercase()
+        val intent = Intent(this, InfoActivity::class.java).apply {
+            putExtra(InfoActivity.EXTRA_KIND, InfoActivity.KIND_WEEKDAY)
+            putExtra(InfoActivity.EXTRA_TITLE, title)
+            putExtra(InfoActivity.EXTRA_SUBTITLE, subtitle)
+            putExtra(InfoActivity.EXTRA_BODY, body)
+            putExtra(InfoActivity.EXTRA_DISPLAY_VALUE, displayValue)
+        }
+        startActivity(intent)
+    }
+
+    private fun openColorInfo(colorName: String, hex: String) {
+        val subtitle = getString(R.string.info_color_subtitle)
+        val body = NumerologyInterpretations.colorMeaning(colorName, lifePathNumber)
+        val intent = Intent(this, InfoActivity::class.java).apply {
+            putExtra(InfoActivity.EXTRA_KIND, InfoActivity.KIND_COLOR)
+            putExtra(InfoActivity.EXTRA_TITLE, colorName)
+            putExtra(InfoActivity.EXTRA_SUBTITLE, subtitle)
+            putExtra(InfoActivity.EXTRA_BODY, body)
+            putExtra(InfoActivity.EXTRA_ACCENT_HEX, hex)
+        }
+        startActivity(intent)
+    }
+
+    private fun dp(v: Int): Int = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP, v.toFloat(), resources.displayMetrics
+    ).toInt()
 
     private fun calculateLifePath() {
         val d = reduceToSingleDigitWithMaster(day)
         val m = reduceToSingleDigitWithMaster(month)
         val y = reduceToSingleDigitWithMaster(year)
-        
-        var sum = d + m + y
+
+        val sum = d + m + y
         lifePathNumber = reduceToSingleDigitWithMaster(sum)
     }
 
