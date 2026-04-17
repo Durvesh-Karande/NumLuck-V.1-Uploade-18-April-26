@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="gold">#FFD4A24C</color>
+    <color name="gold_bright">#FFE8C888</color>
+    <color name="gold_dim">#FF8C7143</color>
+
+    <color name="dark_background">#FF000000</color>
+    <color name="surface_1">#FF1C1C1E</color>
+    <color name="surface_2">#FF2C2C2E</color>
+    <color name="surface_3">#FF3A3A3C</color>
+    <color name="separator">#FF2C2C2E</color>
+    <color name="hairline">#33E8C888</color>
+
+    <color name="card_background">#FF1C1C1E</color>
+
+    <color name="text_primary">#FFFFFFFF</color>
+    <color name="text_secondary">#FFEBEBF5</color>
+    <color name="text_muted">#99EBEBF5</color>
+    <color name="hint_color">#66E8C888</color>
+</resources>

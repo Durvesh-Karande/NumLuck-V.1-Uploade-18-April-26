@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">NumLuck</string>
+    <string name="header_title">NumLuck</string>
+    <string name="header_tagline">Discover Your Luck</string>
+    <string name="header_subtitle">Unlock the numbers, dates &amp; colors aligned with your soul</string>
+    <string name="form_section_title">Your Details</string>
+    <string name="dob_label">Date of Birth</string>
+    <string name="first_name_hint">First Name</string>
+    <string name="last_name_hint">Last Name</string>
+    <string name="day_hint">Day (1-31)</string>
+    <string name="month_hint">Month (1-12)</string>
+    <string name="year_hint">Year (1900-2100)</string>
+    <string name="dd">DD</string>
+    <string name="mm">MM</string>
+    <string name="yyyy">YYYY</string>
+    <string name="ornament_top">✦</string>
+    <string name="ornament_bottom">✦    ✧    ✦</string>
+    <string name="chevron">›</string>
+    <string name="submit_button">Reveal My Numbers</string>
+    <string name="results_screen_title">Your Reading</string>
+    <string name="back_cd">Back</string>
+
+    <string name="lucky_numbers_tab">Lucky Numbers</string>
+    <string name="lucky_dates_tab">Lucky Dates</string>
+    <string name="lucky_weekdays_tab">Lucky Weekdays</string>
+    <string name="lucky_colors_tab">Lucky Colors</string>
+
+    <string name="numerology_title">Your Numerology Numbers</string>
+    <string name="numerology_subtitle">Calculated based on your name and birth date</string>
+    <string name="lucky_dates_title">Your Lucky Dates This Month</string>
+    <string name="lucky_dates_subtitle">Dates that resonate with your Life Path Number</string>
+    <string name="lucky_weekdays_title">Your Lucky Weekdays</string>
+    <string name="lucky_weekdays_subtitle">Most favorable days of the week for you</string>
+    <string name="lucky_colors_title">Your Lucky Colors</string>
+    <string name="lucky_colors_subtitle">Colors that enhance your energy and luck</string>
+
+    <string name="life_path_title">Life Path Number</string>
+    <string name="life_path_desc">Your life\'s purpose and natural talents</string>
+    <string name="destiny_title">Destiny Number</string>
+    <string name="destiny_desc">Your ultimate life potential</string>
+    <string name="soul_urge_title">Soul Urge Number</string>
+    <string name="soul_urge_desc">Your innermost desires</string>
+    <string name="personality_title">Personality Number</string>
+    <string name="personality_desc">How others perceive you</string>
+    <string name="birthday_title">Birthday Number</string>
+    <string name="birthday_desc">Your natural gifts</string>
+    <string name="maturity_title">Maturity Number</string>
+    <string name="maturity_desc">Your future self</string>
+    <string name="personal_year_title">Personal Year Number</string>
+    <string name="personal_year_desc">This year\'s energy and opportunities</string>
+</resources>
