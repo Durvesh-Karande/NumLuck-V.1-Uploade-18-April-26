@@ -1,10 +1,10 @@
-package com.example.numluck
+package com.numluck.app
 
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.numluck.databinding.ActivityInfoBinding
+import com.numluck.app.databinding.ActivityInfoBinding
 
 class InfoActivity : AppCompatActivity() {
 

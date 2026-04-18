@@ -3,21 +3,25 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="gold">#FF0A84FF</color>
-    <color name="gold_bright">#FF64D2FF</color>
-    <color name="gold_dim">#FF4A6B8C</color>
+    <color name="gold">#FF2563EB</color>
+    <color name="gold_bright">#FF3B82F6</color>
+    <color name="gold_dim">#FF93C5FD</color>
 
-    <color name="dark_background">#FF000000</color>
-    <color name="surface_1">#FF0E1624</color>
-    <color name="surface_2">#FF16202F</color>
-    <color name="surface_3">#FF1F2B3D</color>
-    <color name="separator">#FF16202F</color>
-    <color name="hairline">#3364D2FF</color>
+    <color name="dark_background">#FFF4F7FC</color>
+    <color name="surface_1">#FFFFFFFF</color>
+    <color name="surface_2">#FFF1F5F9</color>
+    <color name="surface_3">#FFE0EAFB</color>
+    <color name="separator">#FFE2E8F0</color>
+    <color name="hairline">#333B82F6</color>
 
-    <color name="card_background">#FF0E1624</color>
+    <color name="card_background">#FFFFFFFF</color>
 
-    <color name="text_primary">#FFFFFFFF</color>
-    <color name="text_secondary">#FFEBEBF5</color>
-    <color name="text_muted">#99EBEBF5</color>
-    <color name="hint_color">#6664D2FF</color>
+    <color name="text_primary">#FF0F172A</color>
+    <color name="text_secondary">#FF334155</color>
+    <color name="text_muted">#FF64748B</color>
+    <color name="hint_color">#FF94A3B8</color>
+
+    <color name="launcher_background">#FF0B1E4D</color>
+    <color name="brand_navy">#FF0B1E4D</color>
+    <color name="brand_blue_deep">#FF1E3A8A</color>
 </resources>

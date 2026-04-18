@@ -1,8 +1,8 @@
-package com.example.numluck
+package com.numluck.app
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.numluck.databinding.ActivityPolicyBinding
+import com.numluck.app.databinding.ActivityPolicyBinding
 
 class PolicyActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package com.example.numluck
+package com.numluck.app
 
 object NumerologyInterpretations {
 

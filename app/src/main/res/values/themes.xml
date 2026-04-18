@@ -1,15 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Theme.NumLuck" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="Theme.NumLuck" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/gold</item>
         <item name="colorPrimaryVariant">@color/gold_bright</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorOnPrimary">@color/white</item>
         <item name="colorSecondary">@color/gold_bright</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnSecondary">@color/white</item>
         <item name="android:colorBackground">@color/dark_background</item>
         <item name="android:windowBackground">@color/dark_background</item>
-        <item name="android:statusBarColor">@color/black</item>
-        <item name="android:navigationBarColor">@color/black</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:statusBarColor">@color/dark_background</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="android:textColorPrimary">@color/text_primary</item>
         <item name="android:textColorSecondary">@color/text_secondary</item>
         <item name="android:fontFamily">sans-serif</item>

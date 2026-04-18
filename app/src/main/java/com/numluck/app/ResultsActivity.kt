@@ -1,4 +1,4 @@
-package com.example.numluck
+package com.numluck.app
 
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -13,10 +13,10 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.example.numluck.databinding.ActivityResultsBinding
-import com.example.numluck.databinding.ItemColorCardBinding
-import com.example.numluck.databinding.ItemNumberCardBinding
-import com.example.numluck.databinding.ItemSectionHeaderBinding
+import com.numluck.app.databinding.ActivityResultsBinding
+import com.numluck.app.databinding.ItemColorCardBinding
+import com.numluck.app.databinding.ItemNumberCardBinding
+import com.numluck.app.databinding.ItemSectionHeaderBinding
 import com.google.android.material.button.MaterialButton
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -109,10 +109,12 @@ class ResultsActivity : AppCompatActivity() {
 
         val gridLayout = GridLayout(this).apply {
             columnCount = 2
-            layoutParams = LinearLayout.LayoutParams(
+            useDefaultMargins = false
+            val lp = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
-            )
+            ).apply { setMargins(-dp(6), 0, -dp(6), 0) }
+            layoutParams = lp
         }
         binding.contentContainer.addView(gridLayout)
 
@@ -134,7 +136,10 @@ class ResultsActivity : AppCompatActivity() {
 
             val params = GridLayout.LayoutParams()
             params.width = 0
-            params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
+            params.height = GridLayout.LayoutParams.WRAP_CONTENT
+            params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, GridLayout.FILL, 1f)
+            params.rowSpec = GridLayout.spec(GridLayout.UNDEFINED, GridLayout.FILL)
+            params.setMargins(dp(6), dp(6), dp(6), dp(6))
             cardBinding.root.layoutParams = params
 
             cardBinding.root.isClickable = true
@@ -261,7 +266,7 @@ class ResultsActivity : AppCompatActivity() {
             textSize = 14f
             gravity = Gravity.CENTER
             val color = when {
-                isLucky -> ContextCompat.getColor(this@ResultsActivity, R.color.black)
+                isLucky -> ContextCompat.getColor(this@ResultsActivity, R.color.white)
                 else -> ContextCompat.getColor(this@ResultsActivity, R.color.text_primary)
             }
             setTextColor(color)
@@ -330,7 +335,7 @@ class ResultsActivity : AppCompatActivity() {
                 setTextColor(
                     ContextCompat.getColor(
                         this@ResultsActivity,
-                        if (isLucky) R.color.black else R.color.text_muted
+                        if (isLucky) R.color.white else R.color.text_muted
                     )
                 )
                 layoutParams = FrameLayout.LayoutParams(
